@@ -22,7 +22,7 @@
     ];
   in {
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = with pkgs; [alejandra jdk] ++ mcLibraries;
+      packages = with pkgs; [alejandra jdk] ++ mcLibraries;
       LD_LIBRARY_PATH = lib.makeLibraryPath mcLibraries;
     };
   };

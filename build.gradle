@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id "org.jetbrains.kotlin.jvm" version ("2.0.21")
     id 'net.neoforged.gradle.userdev' version '7.0.184'
     id("com.diffplug.spotless") version "7.0.4"
 }
@@ -19,6 +20,10 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    maven {
+        name = "Kotlin for Forge"
+        setUrl("https://thedarkcolour.github.io/KotlinForForge/")
+    }
 }
 
 base {
@@ -97,6 +102,9 @@ dependencies {
     // For all intends and purposes: You can treat this dependency as if it is a normal library you would use.
     implementation "net.neoforged:neoforge:${neo_version}"
 
+    // Since Kotlin is its own JVM language with its own standard library, a custom language loader needs to be used, i.e. KFF
+    implementation("thedarkcolour:kotlinforforge-neoforge:$kff_version")
+
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
@@ -131,6 +139,8 @@ tasks.withType(ProcessResources).configureEach {
             neo_version            : neo_version,
             neo_version_range      : neo_version_range,
             loader_version_range   : loader_version_range,
+            kff_version            : kff_version,
+            kff_version_range      : kff_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
@@ -172,24 +182,29 @@ idea {
 }
 
 spotless {
-  // optional: limit format enforcement to just the files changed by this feature branch
-  ratchetFrom 'origin/main'
+        // optional: limit format enforcement to just the files changed by this feature branch
+        ratchetFrom 'origin/main'
 
-  format 'misc', {
-    // define the files to apply `misc` to
-    target '*.gradle', '.gitattributes', '.gitignore'
+        format 'misc', {
+        // define the files to apply `misc` to
+        target '*.gradle', '.gitattributes', '.gitignore'
 
-    // define the steps to apply to those files
-    trimTrailingWhitespace()
-    leadingTabsToSpaces(2)
-    endWithNewline()
-  }
-  java {
-    // don't need to set target, it is inferred from java
+        // define the steps to apply to those files
+        trimTrailingWhitespace()
+        leadingTabsToSpaces(2)
+        endWithNewline()
+    }
 
-    // apply a specific flavor of google-java-format
-    googleJavaFormat().skipJavadocFormatting()
-    // fix formatting of type annotations
-    formatAnnotations()
-  }
+    java {
+        // don't need to set target, it is inferred from java
+
+        // apply a specific flavor of google-java-format
+        googleJavaFormat().skipJavadocFormatting()
+        // fix formatting of type annotations
+        formatAnnotations()
+    }
+
+    kotlin {
+        ktfmt().googleStyle()
+    }
 }

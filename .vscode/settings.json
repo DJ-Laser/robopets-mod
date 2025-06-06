@@ -1,0 +1,20 @@
+{
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.format.enabled": false,
+  "files.trimTrailingWhitespace": false,
+  "spotlessGradle.diagnostics.enable": false,
+  "spotlessGradle.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.spotlessGradle": "always"
+  },
+  "[java]": {
+    "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
+  },
+  "[kotlin]": {
+    "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
+  },
+  "[gradle]": {
+    "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
+  }
+}

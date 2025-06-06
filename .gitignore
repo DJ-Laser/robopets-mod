@@ -23,6 +23,9 @@ build
 # kotlin
 .kotlin
 
+#datagen
+.cache
+
 # other
 eclipse
 run

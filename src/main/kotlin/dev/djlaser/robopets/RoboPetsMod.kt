@@ -51,9 +51,9 @@ public class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
     val EXAMPLE_BLOCK_ITEM: DeferredItem<BlockItem> =
       ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK)
 
-    val EXAMPLE_ITEM: DeferredItem<Item> =
+    val PET_TRANCIEVER: DeferredItem<Item> =
       ITEMS.registerSimpleItem(
-        "example_item",
+        "pet_tranciever",
         Item.Properties()
           .food(FoodProperties.Builder().alwaysEdible().nutrition(1).saturationModifier(2f).build()),
       )
@@ -65,9 +65,9 @@ public class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
           CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.robopets"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon({ -> EXAMPLE_ITEM.get().getDefaultInstance() })
+            .icon({ -> PET_TRANCIEVER.get().getDefaultInstance() })
             .displayItems { _: ItemDisplayParameters?, output: CreativeModeTab.Output ->
-              output.accept(EXAMPLE_ITEM.get())
+              output.accept(PET_TRANCIEVER.get())
               output.accept(EXAMPLE_BLOCK_ITEM.get())
             }
             .build()

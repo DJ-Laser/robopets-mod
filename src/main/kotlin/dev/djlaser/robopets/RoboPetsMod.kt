@@ -31,8 +31,8 @@ import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 
-@Mod(RoboPetsMod.MODID)
-public class RoboPetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
+@Mod(RobopetsMod.MODID)
+public class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
   companion object {
     const val MODID = "robopets"
     private val LOGGER = LogUtils.getLogger()
@@ -91,7 +91,7 @@ public class RoboPetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
 
   init {
     // Register the commonSetup method for modloading
-    modEventBus.addListener(this::commonSetup)
+    modEventBus.addListener(::commonSetup)
 
     // Register the Deferred Registers to the mod event bus so stuff gets registered
     BLOCKS.register(modEventBus)

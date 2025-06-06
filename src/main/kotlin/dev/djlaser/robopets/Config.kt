@@ -9,7 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.config.ModConfigEvent
 import net.neoforged.neoforge.common.ModConfigSpec
 
-@EventBusSubscriber(modid = RoboPetsMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = RobopetsMod.MODID, bus = EventBusSubscriber.Bus.MOD)
 public object Config {
   private val BUILDER: ModConfigSpec.Builder = ModConfigSpec.Builder()
 
@@ -40,7 +40,8 @@ public object Config {
       BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName))
   }
 
-  @SubscribeEvent @JvmStatic
+  @SubscribeEvent
+  @JvmStatic
   fun onLoad(@Suppress("UNUSED_PARAMETER") event: ModConfigEvent) {
     logDirtBlock = LOG_DIRT_BLOCK.get()
     magicNumber = MAGIC_NUMBER.get()

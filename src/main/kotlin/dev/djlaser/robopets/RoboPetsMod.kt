@@ -32,7 +32,7 @@ import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 
 @Mod(RoboPetsMod.MODID)
-public class RoboPetsMod {
+public class RoboPetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
   companion object {
     const val MODID = "robopets"
     private val LOGGER = LogUtils.getLogger()
@@ -79,7 +79,8 @@ public class RoboPetsMod {
     // annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = [Dist.CLIENT])
     object ClientModEvents {
-      @SubscribeEvent @JvmStatic
+      @SubscribeEvent
+      @JvmStatic
       fun onClientSetup(@Suppress("UNUSED_PARAMETER") event: FMLClientSetupEvent?) {
         // Some client setup code
         LOGGER.info("HELLO FROM CLIENT SETUP")
@@ -88,7 +89,7 @@ public class RoboPetsMod {
     }
   }
 
-  constructor(modEventBus: IEventBus, modContainer: ModContainer) {
+  init {
     // Register the commonSetup method for modloading
     modEventBus.addListener(this::commonSetup)
 

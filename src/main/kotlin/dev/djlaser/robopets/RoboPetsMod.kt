@@ -79,7 +79,7 @@ public class RoboPetsMod {
     // annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = [Dist.CLIENT])
     object ClientModEvents {
-      @SubscribeEvent
+      @SubscribeEvent @JvmStatic
       fun onClientSetup(@Suppress("UNUSED_PARAMETER") event: FMLClientSetupEvent?) {
         // Some client setup code
         LOGGER.info("HELLO FROM CLIENT SETUP")

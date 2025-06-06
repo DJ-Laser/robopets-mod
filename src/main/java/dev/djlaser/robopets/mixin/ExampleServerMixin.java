@@ -1,5 +1,6 @@
 package dev.djlaser.robopets.mixin;
 
+import dev.djlaser.robopets.RoboPetsModJava;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerInfo;
@@ -20,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 // Those clauses are added to get easy access to things without needing to @Shadow them.
 @Mixin(MinecraftServer.class)
 public abstract class ExampleServerMixin extends ReentrantBlockableEventLoop<TickTask>
-    implements ServerInfo, ChunkIOErrorReporter, CommandSource, AutoCloseable {
+    implements ServerInfo, ChunkIOErrorReporter, CommandSource {
 
   // Constructor of a Mixin gets ignored
   public ExampleServerMixin(String pName) {
@@ -29,6 +30,7 @@ public abstract class ExampleServerMixin extends ReentrantBlockableEventLoop<Tic
 
   @Inject(method = "loadLevel", at = @At("TAIL"))
   public void examplemod$runServer(CallbackInfo ci) {
-    System.out.println("Example Mixin ran from server startup (modid: " + ExampleMod.MODID + ")");
+    System.out.println(
+        "Example Mixin ran from server startup (modid: " + RoboPetsModJava.MODID + ")");
   }
 }

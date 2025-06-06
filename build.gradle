@@ -182,10 +182,10 @@ idea {
 }
 
 spotless {
-        // optional: limit format enforcement to just the files changed by this feature branch
-        ratchetFrom 'origin/main'
+    // optional: limit format enforcement to just the files changed by this feature branch
+    ratchetFrom 'origin/main'
 
-        format 'misc', {
+    format 'misc', {
         // define the files to apply `misc` to
         target '*.gradle', '.gitattributes', '.gitignore'
 
@@ -197,6 +197,8 @@ spotless {
 
     java {
         // don't need to set target, it is inferred from java
+
+        toggleOffOn()
 
         // apply a specific flavor of google-java-format
         googleJavaFormat().skipJavadocFormatting()

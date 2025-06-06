@@ -40,7 +40,7 @@ public object Config {
       BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName))
   }
 
-  @SubscribeEvent
+  @SubscribeEvent @JvmStatic
   fun onLoad(@Suppress("UNUSED_PARAMETER") event: ModConfigEvent) {
     logDirtBlock = LOG_DIRT_BLOCK.get()
     magicNumber = MAGIC_NUMBER.get()

@@ -1,6 +1,7 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
   "java.configuration.updateBuildConfiguration": "automatic",
+  "kotlin.codegen.enabled": true,
   "java.format.enabled": false,
   "files.trimTrailingWhitespace": false,
   "spotlessGradle.diagnostics.enable": false,
@@ -16,5 +17,10 @@
   },
   "[gradle]": {
     "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
-  }
+  },
+  "java.project.resourceFilters": [
+    "node_modules",
+    "\\.git",
+    "RoboPetsModJava.java"
+  ]
 }

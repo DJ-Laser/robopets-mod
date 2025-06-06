@@ -20,6 +20,9 @@ out
 build
 .gradle
 
+# kotlin
+.kotlin
+
 # other
 eclipse
 run

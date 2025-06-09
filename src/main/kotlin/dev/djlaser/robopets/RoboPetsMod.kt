@@ -34,7 +34,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
 @Mod(RobopetsMod.MODID)
 public class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
   companion object {
-    const val MODID = "robopets"
+    const val MODID = RobopetsMetadata.MODID
     private val LOGGER = LogUtils.getLogger()
 
     val BLOCKS: DeferredRegister.Blocks = DeferredRegister.createBlocks(MODID)

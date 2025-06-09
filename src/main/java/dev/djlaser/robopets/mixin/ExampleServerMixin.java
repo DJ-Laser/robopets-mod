@@ -1,6 +1,6 @@
 package dev.djlaser.robopets.mixin;
 
-import dev.djlaser.robopets.RobopetsModJava;
+import dev.djlaser.robopets.RobopetsMetadata;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerInfo;
@@ -31,6 +31,6 @@ public abstract class ExampleServerMixin extends ReentrantBlockableEventLoop<Tic
   @Inject(method = "loadLevel", at = @At("TAIL"))
   public void examplemod$runServer(CallbackInfo ci) {
     System.out.println(
-        "Example Mixin ran from server startup (modid: " + RobopetsModJava.MODID + ")");
+        "Example Mixin ran from server startup (modid: " + RobopetsMetadata.MODID + ")");
   }
 }

@@ -1,7 +1,7 @@
-package dev.djlaser.robopets.datagen
+package dev.djlaser.robopets.datagen.common
 
 import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.datagen.common.RobopetsItemModelProvider
+import dev.djlaser.robopets.datagen.client.RobopetsItemModelProvider
 import java.util.concurrent.CompletableFuture
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator

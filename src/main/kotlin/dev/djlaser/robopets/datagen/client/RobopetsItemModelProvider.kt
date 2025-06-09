@@ -1,6 +1,7 @@
-package dev.djlaser.robopets.datagen.common
+package dev.djlaser.robopets.datagen.client
 
 import dev.djlaser.robopets.RobopetsMod
+import dev.djlaser.robopets.registries.RobopetsItems
 import net.minecraft.data.PackOutput
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
@@ -9,6 +10,6 @@ class RobopetsItemModelProvider(output: PackOutput, existingFileHelper: Existing
   ItemModelProvider(output, RobopetsMod.MODID, existingFileHelper) {
 
   override fun registerModels() {
-    basicItem(RobopetsMod.PET_TRANCIEVER.get())
+    basicItem(RobopetsItems.PET_TRANCIEVER.get())
   }
 }

@@ -1,4 +1,4 @@
-package dev.djlaser.robopets.datagen.client
+package dev.djlaser.robopets.datagen.client.state
 
 import dev.djlaser.robopets.RobopetsMod
 import dev.djlaser.robopets.registration.DeferredBlockItem

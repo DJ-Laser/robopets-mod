@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "robopets:block/genetic_replicator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "robopets:block/genetic_replicator"
+    },
+    "facing=south": {
+      "model": "robopets:block/genetic_replicator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "robopets:block/genetic_replicator",
+      "y": 270
+    }
+  }
+}

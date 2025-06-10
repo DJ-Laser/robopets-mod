@@ -10,4 +10,6 @@ object RobopetsItems {
 
   val PET_TRANCIEVER: DeferredItem<Item> =
     ITEMS.registerSimpleItem("pet_tranciever", Item.Properties())
+
+  val MICROCHIP: DeferredItem<Item> = ITEMS.registerSimpleItem("microchip", Item.Properties())
 }

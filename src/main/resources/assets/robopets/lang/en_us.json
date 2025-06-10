@@ -1,5 +1,6 @@
 {
-  "itemGroup.robopets": "Robo Pets",
-  "block.robopets.example_block": "Example Block",
-  "item.robopets.example_item": "Example Item"
+  "itemGroup.robopets": "Robopets",
+  "block.robopets.genetic_replicator": "Genetic Replicator",
+  "item.robopets.pet_tranciever": "Pet Tranciever",
+  "item.robopets.microchip": "Microchip"
 }

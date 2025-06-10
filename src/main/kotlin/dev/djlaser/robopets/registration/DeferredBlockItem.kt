@@ -1,5 +1,6 @@
 package dev.djlaser.robopets.registration
 
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.neoforged.neoforge.registries.DeferredBlock
@@ -15,5 +16,13 @@ public class DeferredBlockItem<B : Block, I : Item>(
 
   fun getItem(): I {
     return item.get()
+  }
+
+  fun getId(): ResourceLocation {
+    return block.getId()
+  }
+
+  fun getName(): String {
+    return getId().getPath()
   }
 }

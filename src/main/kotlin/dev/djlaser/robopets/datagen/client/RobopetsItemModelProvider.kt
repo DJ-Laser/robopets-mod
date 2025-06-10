@@ -11,5 +11,6 @@ class RobopetsItemModelProvider(output: PackOutput, existingFileHelper: Existing
 
   override fun registerModels() {
     basicItem(RobopetsItems.PET_TRANCIEVER.get())
+    basicItem(RobopetsItems.MICROCHIP.get())
   }
 }

@@ -6,6 +6,7 @@ import dev.djlaser.robopets.registries.RobopetsCreativeTabs
 import dev.djlaser.robopets.registries.RobopetsItems
 import net.minecraft.client.Minecraft
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.IEventBus
@@ -24,6 +25,10 @@ class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
   companion object {
     public const val MODID = RobopetsMetadata.MODID
     private val LOGGER = LogUtils.getLogger()
+
+    fun loc(path: String): ResourceLocation {
+      return ResourceLocation.fromNamespaceAndPath(MODID, path)
+    }
 
     // You can use EventBusSubscriber to automatically register all static methods in
     // the class

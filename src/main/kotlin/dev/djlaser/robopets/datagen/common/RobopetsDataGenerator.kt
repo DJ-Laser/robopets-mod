@@ -1,8 +1,9 @@
 package dev.djlaser.robopets.datagen.common
 
 import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.datagen.client.RobopetsBlockStateProvider
-import dev.djlaser.robopets.datagen.client.RobopetsItemModelProvider
+import dev.djlaser.robopets.datagen.client.model.RobopetsItemModelProvider
+import dev.djlaser.robopets.datagen.client.state.RobopetsBlockStateProvider
+import dev.djlaser.robopets.datagen.common.loot.RobopetsLootTableProvider
 import java.util.concurrent.CompletableFuture
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
@@ -29,6 +30,11 @@ public object RobopetsDataGenerator {
     generator.addProvider(
       event.includeClient(),
       RobopetsBlockStateProvider(packOutput, existingFileHelper),
+    )
+
+    generator.addProvider(
+      event.includeServer(),
+      RobopetsLootTableProvider(packOutput, lookupProvider),
     )
   }
 }

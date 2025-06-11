@@ -17,7 +17,7 @@ public object RobopetsBlocks {
       "genetic_replicator",
       ::GeneticReplicatorBlock,
       Properties.of()
-        .strength(3.5f, 6.0f)
+        .strength(2.5f, 6.0f)
         .requiresCorrectToolForDrops()
         .sound(SoundType.METAL)
         .mapColor(MapColor.STONE),

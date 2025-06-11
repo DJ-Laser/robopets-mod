@@ -21,7 +21,7 @@ class BlockItemDefferedRegister private constructor(modid: String) {
 
   val ITEMS = DeferredRegister.createItems(modid)
 
-  fun <B : Block, I : BlockItem> DeferredBlockItem(
+  fun <B : Block, I : BlockItem> registerBlockItem(
     name: String,
     blockSupplier: () -> B,
     itemCreator: (B) -> I,
@@ -36,14 +36,22 @@ class BlockItemDefferedRegister private constructor(modid: String) {
     name: String,
     blockSupplier: () -> B,
   ): DeferredBlockItem<B, BlockItem> {
-    return DeferredBlockItem(name, blockSupplier, { BlockItem(it, Item.Properties()) })
+    return registerBlockItem(name, blockSupplier, { BlockItem(it, Item.Properties()) })
+  }
+
+  fun <B : Block> registerBlock(
+    name: String,
+    blockFunc: (BlockBehaviour.Properties) -> B,
+    properties: BlockBehaviour.Properties,
+  ): DeferredBlockItem<B, BlockItem> {
+    return registerBlock(name, { blockFunc(properties) })
   }
 
   fun registerSimpleBlock(
     name: String,
     properties: BlockBehaviour.Properties,
   ): DeferredBlockItem<Block, BlockItem> {
-    return DeferredBlockItem(name, { Block(properties) }, { BlockItem(it, Item.Properties()) })
+    return registerBlock(name, { Block(properties) })
   }
 
   fun addAlias(from: ResourceLocation, to: ResourceLocation) {

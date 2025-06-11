@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils
 import dev.djlaser.robopets.registries.RobopetsBlocks
 import dev.djlaser.robopets.registries.RobopetsCreativeTabs
 import dev.djlaser.robopets.registries.RobopetsItems
+import dev.djlaser.robopets.registries.RobopetsBlockEntityTypes
 import net.minecraft.client.Minecraft
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
@@ -52,6 +53,7 @@ class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
     // Register the Deferred Registers to the mod event bus so stuff gets registered
     RobopetsItems.ITEMS.register(modEventBus)
     RobopetsBlocks.BLOCKS.register(modEventBus)
+    RobopetsBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus)
     RobopetsCreativeTabs.CREATIVE_TABS.register(modEventBus)
 
     // Register ourselves for server and other game events we are interested in.

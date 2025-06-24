@@ -1,10 +1,10 @@
 package dev.djlaser.robopets
 
 import com.mojang.logging.LogUtils
+import dev.djlaser.robopets.registries.RobopetsBlockEntityTypes
 import dev.djlaser.robopets.registries.RobopetsBlocks
 import dev.djlaser.robopets.registries.RobopetsCreativeTabs
 import dev.djlaser.robopets.registries.RobopetsItems
-import dev.djlaser.robopets.registries.RobopetsBlockEntityTypes
 import net.minecraft.client.Minecraft
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation

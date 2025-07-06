@@ -1,3 +1,6 @@
+
+**Note: [Kotlin For Forge](https://modrinth.com/mod/kotlin-for-forge) v5.6+ is required for this mod to work**
+
 Have your dogs ever been slain in battle valiatly protecting you?
 
 Has your cat ever walked straight into an open pit of lava for no reason?

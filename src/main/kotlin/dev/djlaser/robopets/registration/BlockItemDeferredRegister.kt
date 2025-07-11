@@ -10,16 +10,16 @@ import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
-class BlockItemDefferedRegister private constructor(modid: String) {
+class BlockItemDeferredRegister private constructor(modid: String) {
   companion object {
-    fun create(modid: String): BlockItemDefferedRegister {
-      return BlockItemDefferedRegister(modid)
+    fun create(modid: String): BlockItemDeferredRegister {
+      return BlockItemDeferredRegister(modid)
     }
   }
 
-  val BLOCKS = DeferredRegister.createBlocks(modid)
+  private val BLOCKS: DeferredRegister.Blocks = DeferredRegister.createBlocks(modid)
 
-  val ITEMS = DeferredRegister.createItems(modid)
+  private val ITEMS: DeferredRegister.Items = DeferredRegister.createItems(modid)
 
   fun <B : Block, I : BlockItem> registerBlockItem(
     name: String,
@@ -36,7 +36,7 @@ class BlockItemDefferedRegister private constructor(modid: String) {
     name: String,
     blockSupplier: () -> B,
   ): DeferredBlockItem<B, BlockItem> {
-    return registerBlockItem(name, blockSupplier, { BlockItem(it, Item.Properties()) })
+    return registerBlockItem(name, blockSupplier) { BlockItem(it, Item.Properties()) }
   }
 
   fun <B : Block> registerBlock(
@@ -44,14 +44,14 @@ class BlockItemDefferedRegister private constructor(modid: String) {
     blockFunc: (BlockBehaviour.Properties) -> B,
     properties: BlockBehaviour.Properties,
   ): DeferredBlockItem<B, BlockItem> {
-    return registerBlock(name, { blockFunc(properties) })
+    return registerBlock(name) { blockFunc(properties) }
   }
 
   fun registerSimpleBlock(
     name: String,
     properties: BlockBehaviour.Properties,
   ): DeferredBlockItem<Block, BlockItem> {
-    return registerBlock(name, { Block(properties) })
+    return registerBlock(name) { Block(properties) }
   }
 
   fun addAlias(from: ResourceLocation, to: ResourceLocation) {
@@ -65,10 +65,10 @@ class BlockItemDefferedRegister private constructor(modid: String) {
   }
 
   fun getBlocks(): Collection<DeferredHolder<Block, out Block>> {
-    return BLOCKS.getEntries()
+    return BLOCKS.entries
   }
 
   fun getItems(): Collection<DeferredHolder<Item, out Item>> {
-    return ITEMS.getEntries()
+    return ITEMS.entries
   }
 }

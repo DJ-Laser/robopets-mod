@@ -1,6 +1,5 @@
 package dev.djlaser.robopets
 
-import java.util.stream.Collectors
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
@@ -8,9 +7,10 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.config.ModConfigEvent
 import net.neoforged.neoforge.common.ModConfigSpec
+import java.util.stream.Collectors
 
 @EventBusSubscriber(modid = RobopetsMod.MODID, bus = EventBusSubscriber.Bus.MOD)
-public object Config {
+object Config {
   private val BUILDER: ModConfigSpec.Builder = ModConfigSpec.Builder()
 
   private val LOG_DIRT_BLOCK: ModConfigSpec.BooleanValue =
@@ -30,14 +30,14 @@ public object Config {
 
   val SPEC: ModConfigSpec = BUILDER.build()
 
-  public var logDirtBlock: Boolean = false
-  public var magicNumber: Int = 0
-  lateinit public var magicNumberIntroduction: String
-  lateinit public var items: Set<Item>
+  var logDirtBlock: Boolean = false
+  var magicNumber: Int = 0
+  lateinit var magicNumberIntroduction: String
+  lateinit var items: Set<Item>
 
   private fun validateItemName(itemName: Any): Boolean {
     return itemName is String &&
-      BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName))
+        BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName))
   }
 
   @SubscribeEvent

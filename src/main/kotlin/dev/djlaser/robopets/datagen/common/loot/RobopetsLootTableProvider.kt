@@ -16,4 +16,4 @@ class RobopetsLootTableProvider(
     setOf(),
     listOf(SubProviderEntry(::RobopetsBlockLootSubProvider, LootContextParamSets.BLOCK)),
     lookupProvider,
-  ) {}
+  )

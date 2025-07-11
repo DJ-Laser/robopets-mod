@@ -1,7 +1,7 @@
 package dev.djlaser.robopets.registries
 
 import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.registration.BlockItemDefferedRegister
+import dev.djlaser.robopets.registration.BlockItemDeferredRegister
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.CreativeModeTab
@@ -17,26 +17,25 @@ object RobopetsCreativeTabs {
   val ROBOPETS_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> =
     CREATIVE_TABS.register(
       "robopets_tab",
-      { ->
-        CreativeModeTab.builder()
-          .title(Component.translatable("itemGroup.robopets"))
-          .withTabsBefore(CreativeModeTabs.COMBAT)
-          .icon({ -> RobopetsItems.PET_TRANCIEVER.get().getDefaultInstance() })
-          .displayItems { _: ItemDisplayParameters?, output: CreativeModeTab.Output ->
-            acceptOutput(RobopetsItems.ITEMS, output)
-            acceptOutput(RobopetsBlocks.BLOCKS, output)
-          }
-          .build()
-      },
-    )
+    ) { ->
+      CreativeModeTab.builder()
+        .title(Component.translatable("itemGroup.robopets"))
+        .withTabsBefore(CreativeModeTabs.COMBAT)
+        .icon { RobopetsItems.PET_TRANSCEIVER.get().defaultInstance }
+        .displayItems { _: ItemDisplayParameters?, output: CreativeModeTab.Output ->
+          acceptOutput(RobopetsItems.ITEMS, output)
+          acceptOutput(RobopetsBlocks.BLOCKS, output)
+        }
+        .build()
+    }
 
   private fun acceptOutput(register: DeferredRegister.Items, output: CreativeModeTab.Output) {
-    for (entry in register.getEntries()) {
+    for (entry in register.entries) {
       output.accept(entry.get())
     }
   }
 
-  private fun acceptOutput(register: BlockItemDefferedRegister, output: CreativeModeTab.Output) {
+  private fun acceptOutput(register: BlockItemDeferredRegister, output: CreativeModeTab.Output) {
     for (entry in register.getItems()) {
       output.accept(entry.get())
     }

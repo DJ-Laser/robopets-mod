@@ -10,22 +10,22 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
-class PetTrancieverItem(properties: Item.Properties) : Item(properties) {
+class PetTransceiverItem(properties: Properties) : Item(properties) {
   override fun use(
     level: Level,
     player: Player,
     hand: InteractionHand,
   ): InteractionResultHolder<ItemStack> {
-    val itemstack: ItemStack = player.getItemInHand(hand)
+    val heldItem: ItemStack = player.getItemInHand(hand)
 
-    if (player.isCrouching()) {
-      return InteractionResultHolder(InteractionResult.SUCCESS, itemstack)
+    if (player.isCrouching) {
+      return InteractionResultHolder(InteractionResult.SUCCESS, heldItem)
     }
 
     if (level.isClientSide()) {
       level.playLocalSound(player, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 1f, 1f)
     }
 
-    return InteractionResultHolder(InteractionResult.SUCCESS, itemstack)
+    return InteractionResultHolder(InteractionResult.SUCCESS, heldItem)
   }
 }

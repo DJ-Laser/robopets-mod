@@ -1,7 +1,7 @@
 package dev.djlaser.robopets.block
 
 import com.mojang.serialization.MapCodec
-import dev.djlaser.blockentity.GeneticReplicatorBlockEntity
+import dev.djlaser.robopets.blockentity.GeneticReplicatorBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -9,13 +9,12 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.EntityBlock
 import net.minecraft.world.level.block.Mirror
 import net.minecraft.world.level.block.Rotation
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.DirectionProperty
 
-public class GeneticReplicatorBlock(properties: Properties) : Block(properties), EntityBlock {
+class GeneticReplicatorBlock(properties: Properties) : Block(properties), EntityBlock {
   companion object {
     val CODEC: MapCodec<GeneticReplicatorBlock> = simpleCodec(::GeneticReplicatorBlock)
     val FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
@@ -34,7 +33,7 @@ public class GeneticReplicatorBlock(properties: Properties) : Block(properties),
   }
 
   override fun getStateForPlacement(context: BlockPlaceContext): BlockState {
-    return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
+    return defaultBlockState().setValue(FACING, context.horizontalDirection.opposite)
   }
 
   override fun rotate(state: BlockState, rotation: Rotation): BlockState {
@@ -45,7 +44,7 @@ public class GeneticReplicatorBlock(properties: Properties) : Block(properties),
     return rotate(state, mirror.getRotation(state.getValue(FACING)))
   }
 
-  override fun newBlockEntity(pos: BlockPos, state: BlockState): GeneticReplicatorBlockEntity? {
+  override fun newBlockEntity(pos: BlockPos, state: BlockState): GeneticReplicatorBlockEntity {
     return GeneticReplicatorBlockEntity(pos, state)
   }
 }

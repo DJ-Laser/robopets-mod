@@ -29,7 +29,7 @@ public abstract class ExampleServerMixin extends ReentrantBlockableEventLoop<Tic
   }
 
   @Inject(method = "loadLevel", at = @At("TAIL"))
-  public void examplemod$runServer(CallbackInfo ci) {
+  public void robopets$runServer(CallbackInfo ci) {
     System.out.println(
         "Example Mixin ran from server startup (modid: " + RobopetsMetadata.MODID + ")");
   }

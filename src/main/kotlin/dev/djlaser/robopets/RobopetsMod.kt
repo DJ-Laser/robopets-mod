@@ -24,7 +24,7 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent
 @Mod(RobopetsMod.MODID)
 class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
   companion object {
-    public const val MODID = RobopetsMetadata.MODID
+    const val MODID = RobopetsMetadata.MODID
     private val LOGGER = LogUtils.getLogger()
 
     fun loc(path: String): ResourceLocation {
@@ -79,12 +79,12 @@ class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
 
     LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber)
 
-    Config.items.forEach({ item -> LOGGER.info("ITEM >> {}", item.toString()) })
+    Config.items.forEach { item -> LOGGER.info("ITEM >> {}", item.toString()) }
   }
 
   // You can use SubscribeEvent and let the Event Bus discover methods to call
   @SubscribeEvent
-  public fun onServerStarting(@Suppress("UNUSED_PARAMETER") event: ServerStartingEvent) {
+  fun onServerStarting(@Suppress("UNUSED_PARAMETER") event: ServerStartingEvent) {
     // Do something when the server starts
     LOGGER.info("HELLO from server starting")
   }

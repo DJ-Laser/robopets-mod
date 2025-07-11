@@ -17,7 +17,7 @@ class RobopetsBlockStateProvider(output: PackOutput, existingFileHelper: Existin
     val replicatorModel: ModelFile =
       models()
         .orientable(
-          RobopetsBlocks.GENETIC_REPLICATOR.getName(),
+          RobopetsBlocks.GENETIC_REPLICATOR.name,
           blockTexture(GENETIC_REPLICATOR, "_side"),
           blockTexture(GENETIC_REPLICATOR, "_front"),
           blockTexture(GENETIC_REPLICATOR, "_top"),
@@ -28,23 +28,23 @@ class RobopetsBlockStateProvider(output: PackOutput, existingFileHelper: Existin
   }
 
   fun simpleBlockItem(block: DeferredBlockItem<*, *>, model: ModelFile) {
-    itemModels().getBuilder(block.getName()).parent(model)
+    itemModels().getBuilder(block.name).parent(model)
   }
 
-  fun autoBlockItem(block: DeferredBlockItem<*, *>) {
-    itemModels().simpleBlockItem(block.getId())
+  private fun autoBlockItem(block: DeferredBlockItem<*, *>) {
+    itemModels().simpleBlockItem(block.id)
   }
 
-  fun extend(base: ResourceLocation, suffix: String): ResourceLocation {
-    return ResourceLocation.fromNamespaceAndPath(base.getNamespace(), base.getPath() + suffix)
+  private fun extend(base: ResourceLocation, suffix: String): ResourceLocation {
+    return ResourceLocation.fromNamespaceAndPath(base.namespace, base.path + suffix)
   }
 
-  fun blockTexture(block: DeferredBlockItem<*, *>): ResourceLocation {
-    val name = block.getId()
-    return ResourceLocation.fromNamespaceAndPath(name.getNamespace(), "block/" + name.getPath())
+  private fun blockTexture(block: DeferredBlockItem<*, *>): ResourceLocation {
+    val name = block.id
+    return ResourceLocation.fromNamespaceAndPath(name.namespace, "block/" + name.path)
   }
 
-  fun blockTexture(block: DeferredBlockItem<*, *>, suffix: String): ResourceLocation {
+  private fun blockTexture(block: DeferredBlockItem<*, *>, suffix: String): ResourceLocation {
     return extend(blockTexture(block), suffix)
   }
 }

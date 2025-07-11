@@ -1,11 +1,11 @@
 package dev.djlaser.robopets.registries
 
-import dev.djlaser.blockentity.GeneticReplicatorBlockEntity
 import dev.djlaser.robopets.RobopetsMod
-import java.util.function.Supplier
+import dev.djlaser.robopets.blockentity.GeneticReplicatorBlockEntity
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredRegister
+import java.util.function.Supplier
 
 object RobopetsBlockEntityTypes {
   val BLOCK_ENTITY_TYPES: DeferredRegister<BlockEntityType<*>> =
@@ -16,9 +16,9 @@ object RobopetsBlockEntityTypes {
       "genetic_replicator",
       Supplier {
         BlockEntityType.Builder.of(
-            ::GeneticReplicatorBlockEntity,
-            RobopetsBlocks.GENETIC_REPLICATOR.getBlock(),
-          )
+          ::GeneticReplicatorBlockEntity,
+          RobopetsBlocks.GENETIC_REPLICATOR.getBlock(),
+        )
           .build(@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS") null)
       },
     )

@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block
 import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredItem
 
-public class DeferredBlockItem<B : Block, I : Item>(
+class DeferredBlockItem<B : Block, I : Item>(
   val block: DeferredBlock<B>,
   val item: DeferredItem<I>,
 ) {
@@ -18,11 +18,9 @@ public class DeferredBlockItem<B : Block, I : Item>(
     return item.get()
   }
 
-  fun getId(): ResourceLocation {
-    return block.getId()
-  }
-
-  fun getName(): String {
-    return getId().getPath()
-  }
+  val id: ResourceLocation
+    get() = block.id
+  
+  val name: String
+    get() = this.id.path
 }

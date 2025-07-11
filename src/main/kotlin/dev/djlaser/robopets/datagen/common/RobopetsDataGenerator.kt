@@ -15,14 +15,14 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.data.event.GatherDataEvent
 
 @EventBusSubscriber(modid = RobopetsMod.MODID, bus = EventBusSubscriber.Bus.MOD)
-public object RobopetsDataGenerator {
+object RobopetsDataGenerator {
   @SubscribeEvent
   @JvmStatic
-  public fun gatherData(event: GatherDataEvent) {
-    var generator: DataGenerator = event.getGenerator()
-    var packOutput: PackOutput = generator.getPackOutput()
-    var existingFileHelper: ExistingFileHelper = event.getExistingFileHelper()
-    var lookupProvider: CompletableFuture<HolderLookup.Provider> = event.getLookupProvider()
+  fun gatherData(event: GatherDataEvent) {
+    val generator: DataGenerator = event.generator
+    val packOutput: PackOutput = generator.packOutput
+    val existingFileHelper: ExistingFileHelper = event.existingFileHelper
+    val lookupProvider: CompletableFuture<HolderLookup.Provider> = event.lookupProvider
 
     generator.addProvider(
       event.includeClient(),

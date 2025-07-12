@@ -21,12 +21,13 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import net.neoforged.neoforge.common.NeoForge
 import net.neoforged.neoforge.event.server.ServerStartingEvent
+import org.slf4j.Logger
 
 @Mod(RobopetsMod.MODID)
 class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
   companion object {
     const val MODID = RobopetsMetadata.MODID
-    private val LOGGER = LogUtils.getLogger()
+    val LOGGER: Logger = LogUtils.getLogger()
 
     fun loc(path: String): ResourceLocation {
       return ResourceLocation.fromNamespaceAndPath(MODID, path)

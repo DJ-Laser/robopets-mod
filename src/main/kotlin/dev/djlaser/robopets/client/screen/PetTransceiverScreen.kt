@@ -51,6 +51,18 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
     this.addRenderableWidget(petName)
   }
 
+  override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
+    if (keyCode == 256) {
+      minecraft!!.player!!.closeContainer()
+    }
+
+    if (petName.keyPressed(keyCode, scanCode, modifiers) || petName.canConsumeInput()) {
+      return true
+    }
+
+    return super.keyPressed(keyCode, scanCode, modifiers)
+  }
+
   private fun onNameChanged(newName: String) {
     if (menu.renameEntity(newName)) {
       PacketDistributor.sendToServer(ServerBoundRenameEntityPayload(newName))

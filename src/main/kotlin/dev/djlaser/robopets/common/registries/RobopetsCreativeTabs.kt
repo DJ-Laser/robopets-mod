@@ -15,9 +15,7 @@ object RobopetsCreativeTabs {
     DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RobopetsMod.MODID)
 
   val ROBOPETS_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> =
-    CREATIVE_TABS.register(
-      "robopets_tab",
-    ) { ->
+    CREATIVE_TABS.register("robopets_tab") { ->
       CreativeModeTab.builder()
         .title(Component.translatable("itemGroup.robopets"))
         .withTabsBefore(CreativeModeTabs.COMBAT)

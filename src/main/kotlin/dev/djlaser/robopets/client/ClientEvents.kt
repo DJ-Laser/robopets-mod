@@ -8,13 +8,17 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 
-@EventBusSubscriber(modid = RobopetsMod.MODID, bus = EventBusSubscriber.Bus.MOD, value = [Dist.CLIENT])
+@EventBusSubscriber(
+  modid = RobopetsMod.MODID,
+  bus = EventBusSubscriber.Bus.MOD,
+  value = [Dist.CLIENT],
+)
 object ClientModEvents {
   @SubscribeEvent
   @JvmStatic
   fun registerScreens(event: RegisterMenuScreensEvent) {
-    event.register(
-      RobopetsMenuTypes.PET_TRANSCEIVER.get()
-    ) { menu, inv, title -> PetTransceiverScreen(menu, inv, title) }
+    event.register(RobopetsMenuTypes.PET_TRANSCEIVER.get()) { menu, inv, title ->
+      PetTransceiverScreen(menu, inv, title)
+    }
   }
 }

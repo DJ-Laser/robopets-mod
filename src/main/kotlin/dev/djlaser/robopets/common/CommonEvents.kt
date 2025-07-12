@@ -29,7 +29,7 @@ object CommonModEvents {
     registrar.playToServer(
       ServerBoundRenameEntityPayload.TYPE,
       ServerBoundRenameEntityPayload.STREAM_CODEC,
-      ServerBoundRenameEntityPayload::handle
+      ServerBoundRenameEntityPayload::handle,
     )
   }
 }

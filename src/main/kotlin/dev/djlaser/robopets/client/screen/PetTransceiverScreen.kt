@@ -1,8 +1,10 @@
 package dev.djlaser.robopets.client.screen
 
 import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.menu.PetTransceiverLayout as Layout
 import dev.djlaser.robopets.common.menu.PetTransceiverMenu
 import dev.djlaser.robopets.common.network.ServerBoundRenameEntityPayload
+import kotlin.math.PI
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.EditBox
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
@@ -13,8 +15,6 @@ import net.minecraft.world.entity.player.Inventory
 import net.neoforged.neoforge.network.PacketDistributor
 import org.joml.Quaternionf
 import org.joml.Vector3f
-import kotlin.math.PI
-import dev.djlaser.robopets.common.menu.PetTransceiverLayout as Layout
 
 class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title: Component) :
   AbstractContainerScreen<PetTransceiverMenu>(menu, playerInv, title) {
@@ -82,7 +82,7 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
       0,
       0,
       Layout.BASE_BG_WIDTH,
-      Layout.BASE_BG_HEIGHT
+      Layout.BASE_BG_HEIGHT,
     )
     guiGraphics.blit(
       PLAYER_BG,
@@ -91,7 +91,7 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
       0,
       0,
       Layout.PLAYER_BG_WIDTH,
-      Layout.PLAYER_BG_HEIGHT
+      Layout.PLAYER_BG_HEIGHT,
     )
   }
 
@@ -102,7 +102,15 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
   private fun renderPetPanel(guiGraphics: GuiGraphics, partialTick: Float) {
     val panelX = leftPos + Layout.PANEL_BG_X_OFFSET
 
-    guiGraphics.blit(BASE_BG, panelX, topPos, 0, Layout.BASE_BG_HEIGHT, Layout.PANEL_BG_WIDTH, Layout.PANEL_BG_HEIGHT)
+    guiGraphics.blit(
+      BASE_BG,
+      panelX,
+      topPos,
+      0,
+      Layout.BASE_BG_HEIGHT,
+      Layout.PANEL_BG_WIDTH,
+      Layout.PANEL_BG_HEIGHT,
+    )
 
     val petEntity = menu.petEntity
     val entityX = panelX + (Layout.PANEL_BG_WIDTH.toFloat() / 2)

@@ -1,6 +1,7 @@
 package dev.djlaser.robopets.common.menu
 
 import dev.djlaser.robopets.common.registries.RobopetsMenuTypes
+import kotlin.math.max
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.util.StringUtil
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
-import kotlin.math.max
 
 object PetTransceiverLayout {
   const val BG_HORIZONTAL_GAP = 5
@@ -39,11 +39,9 @@ class PetTransceiverMenu(
   containerId: Int,
   private val playerInv: Inventory,
   val petEntity: LivingEntity,
-) :
-  AbstractContainerMenu(RobopetsMenuTypes.PET_TRANSCEIVER.get(), containerId) {
+) : AbstractContainerMenu(RobopetsMenuTypes.PET_TRANSCEIVER.get(), containerId) {
   companion object {
-    class LockedSlot(inv: Container, index: Int, x: Int, y: Int) :
-      Slot(inv, index, x, y) {
+    class LockedSlot(inv: Container, index: Int, x: Int, y: Int) : Slot(inv, index, x, y) {
       constructor(slot: Slot) : this(slot.container, slot.index, slot.x, slot.y)
 
       override fun mayPickup(player: Player): Boolean {
@@ -60,7 +58,9 @@ class PetTransceiverMenu(
       val petEntity = playerInv.player.level().getEntity(entityId)
 
       if (petEntity !is LivingEntity) {
-        throw ClassCastException("Invalid petEntity id, petEntity should be an instance of LivingEntity")
+        throw ClassCastException(
+          "Invalid petEntity id, petEntity should be an instance of LivingEntity"
+        )
       }
 
       return PetTransceiverMenu(containerId, playerInv, petEntity)
@@ -107,15 +107,19 @@ class PetTransceiverMenu(
     return this.petEntity.isAlive && player.canInteractWithEntity(this.petEntity, 4.0)
   }
 
-  val entityName: Component get() = petEntity.name
+  val entityName: Component
+    get() = petEntity.name
 
-  val entityCustomName get() = petEntity.customName
+  val entityCustomName
+    get() = petEntity.customName
 
   fun renameEntity(newName: String): Boolean {
-    val name: Component? = if (StringUtil.isBlank(newName)) null else {
-      val name = validateName(newName) ?: return false
-      Component.literal(name)
-    }
+    val name: Component? =
+      if (StringUtil.isBlank(newName)) null
+      else {
+        val name = validateName(newName) ?: return false
+        Component.literal(name)
+      }
 
     petEntity.customName = name
     return true

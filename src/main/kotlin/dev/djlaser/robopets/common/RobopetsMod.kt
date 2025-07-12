@@ -9,7 +9,6 @@ import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.Mod
 import org.slf4j.Logger
 
-
 @Mod(RobopetsMod.MODID)
 class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
   companion object {

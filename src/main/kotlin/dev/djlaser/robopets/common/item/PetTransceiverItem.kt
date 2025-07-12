@@ -22,12 +22,7 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
       return
     }
 
-    val result = interactLivingEntity(
-      event.itemStack,
-      player,
-      target,
-      hand
-    )
+    val result = interactLivingEntity(event.itemStack, player, target, hand)
 
     event.cancellationResult = result
     event.isCanceled = result != InteractionResult.PASS
@@ -50,16 +45,16 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
     val level = player.level()
 
     if (player.isSecondaryUseActive || usedHand == InteractionHand.OFF_HAND) {
-      return  InteractionResult.PASS
+      return InteractionResult.PASS
     }
 
     if (!level.isClientSide()) {
       player.openMenu(
         SimpleMenuProvider(
           { containerId, playerInv, _ -> PetTransceiverMenu(containerId, playerInv, petEntity) },
-          Component.translatable("gui.robopets.pet_transceiver.title")
+          Component.translatable("gui.robopets.pet_transceiver.title"),
         ),
-        { buf -> buf.writeInt(petEntity.id) }
+        { buf -> buf.writeInt(petEntity.id) },
       )
     }
 

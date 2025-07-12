@@ -1,8 +1,8 @@
 package dev.djlaser.robopets.datagen.client.state
 
-import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.registration.DeferredBlockItem
-import dev.djlaser.robopets.registries.RobopetsBlocks
+import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.registration.DeferredBlockItem
+import dev.djlaser.robopets.common.registries.RobopetsBlocks
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
@@ -17,7 +17,7 @@ class RobopetsBlockStateProvider(output: PackOutput, existingFileHelper: Existin
     val replicatorModel: ModelFile =
       models()
         .orientable(
-          RobopetsBlocks.GENETIC_REPLICATOR.name,
+          GENETIC_REPLICATOR.name,
           blockTexture(GENETIC_REPLICATOR, "_side"),
           blockTexture(GENETIC_REPLICATOR, "_front"),
           blockTexture(GENETIC_REPLICATOR, "_top"),

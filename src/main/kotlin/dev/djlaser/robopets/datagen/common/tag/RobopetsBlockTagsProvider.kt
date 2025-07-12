@@ -1,13 +1,13 @@
 package dev.djlaser.robopets.datagen.common.tag
 
-import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.registries.RobopetsBlocks
-import java.util.concurrent.CompletableFuture
+import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.registries.RobopetsBlocks
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.tags.BlockTags
 import net.neoforged.neoforge.common.data.BlockTagsProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
+import java.util.concurrent.CompletableFuture
 
 class RobopetsBlockTagsProvider(
   output: PackOutput,

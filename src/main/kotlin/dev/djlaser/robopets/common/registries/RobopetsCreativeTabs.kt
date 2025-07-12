@@ -1,7 +1,7 @@
-package dev.djlaser.robopets.registries
+package dev.djlaser.robopets.common.registries
 
-import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.registration.BlockItemDeferredRegister
+import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.registration.BlockItemDeferredRegister
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.CreativeModeTab

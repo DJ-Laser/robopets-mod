@@ -1,4 +1,4 @@
-package dev.djlaser.robopets.registration
+package dev.djlaser.robopets.common.registration
 
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
@@ -20,7 +20,7 @@ class DeferredBlockItem<B : Block, I : Item>(
 
   val id: ResourceLocation
     get() = block.id
-  
+
   val name: String
     get() = this.id.path
 }

@@ -1,6 +1,6 @@
-package dev.djlaser.robopets.blockentity
+package dev.djlaser.robopets.common.blockentity
 
-import dev.djlaser.robopets.registries.RobopetsBlockEntityTypes
+import dev.djlaser.robopets.common.registries.RobopetsBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState

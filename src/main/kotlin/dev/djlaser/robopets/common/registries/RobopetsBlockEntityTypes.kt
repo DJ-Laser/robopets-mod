@@ -1,7 +1,7 @@
-package dev.djlaser.robopets.registries
+package dev.djlaser.robopets.common.registries
 
-import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.blockentity.GeneticReplicatorBlockEntity
+import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.blockentity.GeneticReplicatorBlockEntity
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredRegister

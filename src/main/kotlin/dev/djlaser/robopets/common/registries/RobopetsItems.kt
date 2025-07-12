@@ -1,7 +1,7 @@
-package dev.djlaser.robopets.registries
+package dev.djlaser.robopets.common.registries
 
-import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.item.PetTransceiverItem
+import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.item.PetTransceiverItem
 import net.minecraft.world.item.Item
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister

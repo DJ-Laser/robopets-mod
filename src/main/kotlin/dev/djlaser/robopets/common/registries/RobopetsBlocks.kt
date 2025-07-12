@@ -1,9 +1,9 @@
-package dev.djlaser.robopets.registries
+package dev.djlaser.robopets.common.registries
 
-import dev.djlaser.robopets.RobopetsMod
-import dev.djlaser.robopets.block.GeneticReplicatorBlock
-import dev.djlaser.robopets.registration.BlockItemDeferredRegister
-import dev.djlaser.robopets.registration.DeferredBlockItem
+import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.block.GeneticReplicatorBlock
+import dev.djlaser.robopets.common.registration.BlockItemDeferredRegister
+import dev.djlaser.robopets.common.registration.DeferredBlockItem
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties

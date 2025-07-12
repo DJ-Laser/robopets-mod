@@ -1,4 +1,4 @@
-package dev.djlaser.robopets
+package dev.djlaser.robopets.common
 
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
@@ -26,7 +26,7 @@ object Config {
   // a list of strings that are treated as resource locations for items
   private val ITEM_STRINGS: ModConfigSpec.ConfigValue<List<String>> =
     BUILDER.comment("A list of items to log on common setup.")
-      .defineListAllowEmpty("items", listOf("minecraft:iron_ingot"), ::validateItemName)
+      .defineListAllowEmpty("items", listOf("minecraft:iron_ingot"), Config::validateItemName)
 
   val SPEC: ModConfigSpec = BUILDER.build()
 

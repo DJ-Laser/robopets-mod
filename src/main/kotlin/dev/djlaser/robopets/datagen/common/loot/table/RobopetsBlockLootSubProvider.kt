@@ -1,6 +1,6 @@
 package dev.djlaser.robopets.datagen.common.loot.table
 
-import dev.djlaser.robopets.registries.RobopetsBlocks
+import dev.djlaser.robopets.common.registries.RobopetsBlocks
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.loot.BlockLootSubProvider
 import net.minecraft.world.flag.FeatureFlags

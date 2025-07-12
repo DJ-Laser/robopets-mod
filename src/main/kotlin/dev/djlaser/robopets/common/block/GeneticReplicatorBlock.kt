@@ -1,7 +1,7 @@
-package dev.djlaser.robopets.block
+package dev.djlaser.robopets.common.block
 
 import com.mojang.serialization.MapCodec
-import dev.djlaser.robopets.blockentity.GeneticReplicatorBlockEntity
+import dev.djlaser.robopets.common.blockentity.GeneticReplicatorBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext

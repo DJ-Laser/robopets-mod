@@ -1,9 +1,10 @@
-package dev.djlaser.robopets.item
+package dev.djlaser.robopets.common.item
 
+import dev.djlaser.robopets.client.screen.PetTransceiverScreen
+import net.minecraft.client.Minecraft
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -18,14 +19,11 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
   ): InteractionResultHolder<ItemStack> {
     val heldItem: ItemStack = player.getItemInHand(hand)
 
-    if (player.isCrouching) {
-      return InteractionResultHolder(InteractionResult.SUCCESS, heldItem)
-    }
-
     if (level.isClientSide()) {
       level.playLocalSound(player, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 1f, 1f)
+      Minecraft.getInstance().setScreen(PetTransceiverScreen())
     }
 
-    return InteractionResultHolder(InteractionResult.SUCCESS, heldItem)
+    return InteractionResultHolder.sidedSuccess(heldItem, level.isClientSide())
   }
 }

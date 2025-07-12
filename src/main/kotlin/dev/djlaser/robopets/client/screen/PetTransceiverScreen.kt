@@ -1,71 +1,111 @@
 package dev.djlaser.robopets.client.screen
 
 import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.menu.PetTransceiverMenu
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.EditBox
-import net.minecraft.client.gui.screens.Screen
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
+import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.util.StringUtil
-import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Inventory
+import org.joml.Quaternionf
+import org.joml.Vector3f
+import kotlin.math.PI
+import dev.djlaser.robopets.common.menu.PetTransceiverLayout as Layout
 
-
-class PetTransceiverScreen(private val petEntity: LivingEntity) : Screen(TITLE) {
+class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title: Component) :
+  AbstractContainerScreen<PetTransceiverMenu>(menu, playerInv, title) {
   companion object {
-    private val TITLE: Component = Component.translatable("gui.robopets.pet_transceiver.title")
-    private val PET_NAME_LABEL: Component = Component.translatable("gui.robopets.pet_transceiver.pet_name")
+    val PET_NAME_LABEL: Component = Component.translatable("gui.robopets.pet_transceiver.pet_name")
 
-    private val BACKGROUND: ResourceLocation = RobopetsMod.loc("textures/gui/pet_transceiver.png")
+    private val PET_TRANSLATION: Vector3f = Vector3f()
 
-    private const val nameMaxLength = 50
-
-    private const val imageWidth = 256
-    private const val imageHeight = 140
+    private val BASE_BG: ResourceLocation = RobopetsMod.loc("textures/gui/pet_transceiver.png")
+    private val PLAYER_BG: ResourceLocation = RobopetsMod.loc("textures/gui/player_gui.png")
   }
 
-  private var leftPos = 0
-  private var topPos = 0
+  init {
+    imageWidth = Layout.COMBINED_BG_WIDTH
+    imageHeight = Layout.COMBINED_BG_HEIGHT
+  }
 
+  private val petViewAngle = Quaternionf().rotationXYZ(0F, 0F, PI.toFloat())
   private lateinit var petName: EditBox
+  private val player = playerInv.player
 
   override fun init() {
     super.init()
-
-    leftPos = (width - imageWidth) / 2
-    topPos = (height - imageHeight) / 2
 
     petName = EditBox(font, leftPos + 6, topPos + 6, imageWidth - 12, 10, PET_NAME_LABEL)
     petName.isBordered = false
     petName.textShadow = false
     petName.setTextColor(-1)
-    petName.setMaxLength(nameMaxLength)
+    petName.setMaxLength(PetTransceiverMenu.NAME_MAX_LEN)
     petName.setResponder(this::onNameChanged)
-    petName.value = petEntity.customName?.string ?: ""
-    petName.setHint(petEntity.name)
+    petName.value = menu.entityCustomName?.string ?: ""
+    petName.setHint(menu.entityName)
 
     this.addRenderableWidget(petName)
   }
 
   private fun onNameChanged(newName: String) {
-    val name: Component? = if (StringUtil.isBlank(newName)) null else {
-      val name = validateName(newName) ?: return
-      Component.literal(name)
-    }
-
-    petEntity.customName = name
+    menu.renameEntity(newName)
   }
 
   override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
     super.render(guiGraphics, mouseX, mouseY, partialTick)
+    renderPetPanel(guiGraphics, partialTick)
   }
 
-  override fun renderBackground(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-    this.renderTransparentBackground(guiGraphics)
-    guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight)
+  override fun renderBg(guiGraphics: GuiGraphics, partialTick: Float, mouseX: Int, mouseY: Int) {
+    guiGraphics.blit(
+      BASE_BG,
+      leftPos + Layout.BASE_BG_X_OFFSET,
+      topPos,
+      0,
+      0,
+      Layout.BASE_BG_WIDTH,
+      Layout.BASE_BG_HEIGHT
+    )
+    guiGraphics.blit(
+      PLAYER_BG,
+      leftPos + Layout.PLAYER_BG_X_OFFSET,
+      topPos + Layout.PLAYER_BG_Y_OFFSET,
+      0,
+      0,
+      Layout.PLAYER_BG_WIDTH,
+      Layout.PLAYER_BG_HEIGHT
+    )
   }
 
-  private fun validateName(itemName: String): String? {
-    val s = StringUtil.filterText(itemName)
-    return if (s.length <= nameMaxLength) s else null
+  override fun renderLabels(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int) {
+    // Don't render default labels
+  }
+
+  private fun renderPetPanel(guiGraphics: GuiGraphics, partialTick: Float) {
+    val panelX = leftPos + Layout.PANEL_BG_X_OFFSET
+
+    guiGraphics.blit(BASE_BG, panelX, topPos, 0, Layout.BASE_BG_HEIGHT, Layout.PANEL_BG_WIDTH, Layout.PANEL_BG_HEIGHT)
+
+    val petEntity = menu.petEntity
+    val entityX = panelX + (Layout.PANEL_BG_WIDTH.toFloat() / 2)
+    val entityY = (topPos + 90).toFloat()
+    val targetRotation = -player.getViewYRot(partialTick) * PI.toFloat() / 180
+    val prevCustomName = petEntity.customName
+    petEntity.customName = null
+
+    InventoryScreen.renderEntityInInventory(
+      guiGraphics,
+      entityX,
+      entityY,
+      40F,
+      PET_TRANSLATION,
+      petViewAngle.rotationXYZ(0F, targetRotation, PI.toFloat()),
+      null,
+      petEntity,
+    )
+
+    petEntity.customName = prevCustomName
   }
 }

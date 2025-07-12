@@ -1,11 +1,10 @@
 package dev.djlaser.robopets.common.item
 
-import dev.djlaser.robopets.client.screen.PetTransceiverScreen
-import net.minecraft.client.Minecraft
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
+import dev.djlaser.robopets.common.menu.PetTransceiverMenu
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.SimpleMenuProvider
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -20,9 +19,14 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
   ): InteractionResult {
     val level = player.level()
 
-    if (level.isClientSide()) {
-      level.playLocalSound(player, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 1f, 1f)
-      Minecraft.getInstance().setScreen(PetTransceiverScreen(petEntity))
+    if (!level.isClientSide()) {
+      player.openMenu(
+        SimpleMenuProvider(
+          { containerId, playerInv, _ -> PetTransceiverMenu(containerId, playerInv, petEntity) },
+          Component.translatable("gui.robopets.pet_transceiver.title")
+        ),
+        { buf -> buf.writeInt(petEntity.id) }
+      )
     }
 
     return InteractionResult.sidedSuccess(level.isClientSide())

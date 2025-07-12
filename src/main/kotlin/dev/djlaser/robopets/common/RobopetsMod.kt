@@ -2,11 +2,8 @@ package dev.djlaser.robopets.common
 
 import com.mojang.logging.LogUtils
 import dev.djlaser.robopets.RobopetsMetadata
-import dev.djlaser.robopets.common.registries.RobopetsBlockEntityTypes
-import dev.djlaser.robopets.common.registries.RobopetsBlocks
-import dev.djlaser.robopets.common.registries.RobopetsCreativeTabs
-import dev.djlaser.robopets.common.registries.RobopetsItems
-import net.minecraft.client.Minecraft
+import dev.djlaser.robopets.client.screen.PetTransceiverScreen
+import dev.djlaser.robopets.common.registries.*
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.Blocks
@@ -17,11 +14,12 @@ import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.config.ModConfig
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 import net.neoforged.neoforge.common.NeoForge
 import net.neoforged.neoforge.event.server.ServerStartingEvent
 import org.slf4j.Logger
+
 
 @Mod(RobopetsMod.MODID)
 class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
@@ -40,10 +38,10 @@ class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
     object ClientModEvents {
       @SubscribeEvent
       @JvmStatic
-      fun onClientSetup(@Suppress("UNUSED_PARAMETER") event: FMLClientSetupEvent?) {
-        // Some client setup code
-        LOGGER.info("HELLO FROM CLIENT SETUP")
-        LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().user.name)
+      fun registerScreens(event: RegisterMenuScreensEvent) {
+        event.register(
+          RobopetsMenuTypes.PET_TRANSCEIVER.get()
+        ) { menu, inv, title -> PetTransceiverScreen(menu, inv, title) }
       }
     }
   }
@@ -57,6 +55,7 @@ class RobopetsMod(modEventBus: IEventBus, modContainer: ModContainer) {
     RobopetsBlocks.BLOCKS.register(modEventBus)
     RobopetsBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus)
     RobopetsCreativeTabs.CREATIVE_TABS.register(modEventBus)
+    RobopetsMenuTypes.MENU_TYPES.register(modEventBus)
 
     // Register ourselves for server and other game events we are interested in.
     // Note that this is necessary if and only if we want *this* class (ExampleMod) to

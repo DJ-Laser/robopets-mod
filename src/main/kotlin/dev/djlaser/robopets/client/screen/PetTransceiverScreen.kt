@@ -2,6 +2,7 @@ package dev.djlaser.robopets.client.screen
 
 import dev.djlaser.robopets.common.RobopetsMod
 import dev.djlaser.robopets.common.menu.PetTransceiverMenu
+import dev.djlaser.robopets.common.network.ServerBoundRenameEntityPayload
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.EditBox
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
@@ -9,6 +10,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
+import net.neoforged.neoforge.network.PacketDistributor
 import org.joml.Quaternionf
 import org.joml.Vector3f
 import kotlin.math.PI
@@ -50,7 +52,9 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
   }
 
   private fun onNameChanged(newName: String) {
-    menu.renameEntity(newName)
+    if (menu.renameEntity(newName)) {
+      PacketDistributor.sendToServer(ServerBoundRenameEntityPayload(newName))
+    }
   }
 
   override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {

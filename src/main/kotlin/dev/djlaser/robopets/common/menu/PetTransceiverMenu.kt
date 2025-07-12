@@ -111,13 +111,14 @@ class PetTransceiverMenu(
 
   val entityCustomName get() = petEntity.customName
 
-  fun renameEntity(newName: String) {
+  fun renameEntity(newName: String): Boolean {
     val name: Component? = if (StringUtil.isBlank(newName)) null else {
-      val name = validateName(newName) ?: return
+      val name = validateName(newName) ?: return false
       Component.literal(name)
     }
 
     petEntity.customName = name
+    return true
   }
 
   private fun validateName(itemName: String): String? {

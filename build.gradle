@@ -204,7 +204,7 @@ spotless {
     }
 
     kotlin {
-        target('**/*.kt')
+        target('src/**/*.kt')
 
         ktfmt().googleStyle()
     }

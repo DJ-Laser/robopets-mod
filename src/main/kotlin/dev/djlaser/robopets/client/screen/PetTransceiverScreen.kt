@@ -6,17 +6,21 @@ import net.minecraft.client.gui.components.EditBox
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.StringUtil
+import net.minecraft.world.entity.LivingEntity
 
 
-class PetTransceiverScreen : Screen(TITLE) {
+class PetTransceiverScreen(private val petEntity: LivingEntity) : Screen(TITLE) {
   companion object {
     private val TITLE: Component = Component.translatable("gui.robopets.pet_transceiver.title")
     private val PET_NAME_LABEL: Component = Component.translatable("gui.robopets.pet_transceiver.pet_name")
 
     private val BACKGROUND: ResourceLocation = RobopetsMod.loc("textures/gui/pet_transceiver.png")
 
-    private val imageWidth = 256
-    private val imageHeight = 140
+    private const val nameMaxLength = 50
+
+    private const val imageWidth = 256
+    private const val imageHeight = 140
   }
 
   private var leftPos = 0
@@ -34,9 +38,21 @@ class PetTransceiverScreen : Screen(TITLE) {
     petName.isBordered = false
     petName.textShadow = false
     petName.setTextColor(-1)
-    petName.setMaxLength(50)
+    petName.setMaxLength(nameMaxLength)
+    petName.setResponder(this::onNameChanged)
+    petName.value = petEntity.customName?.string ?: ""
+    petName.setHint(petEntity.name)
 
     this.addRenderableWidget(petName)
+  }
+
+  private fun onNameChanged(newName: String) {
+    val name: Component? = if (StringUtil.isBlank(newName)) null else {
+      val name = validateName(newName) ?: return
+      Component.literal(name)
+    }
+
+    petEntity.customName = name
   }
 
   override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
@@ -46,5 +62,10 @@ class PetTransceiverScreen : Screen(TITLE) {
   override fun renderBackground(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
     this.renderTransparentBackground(guiGraphics)
     guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight)
+  }
+
+  private fun validateName(itemName: String): String? {
+    val s = StringUtil.filterText(itemName)
+    return if (s.length <= nameMaxLength) s else null
   }
 }

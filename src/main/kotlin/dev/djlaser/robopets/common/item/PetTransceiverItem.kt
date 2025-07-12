@@ -5,25 +5,26 @@ import net.minecraft.client.Minecraft
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.level.Level
 
 class PetTransceiverItem(properties: Properties) : Item(properties) {
-  override fun use(
-    level: Level,
+  override fun interactLivingEntity(
+    stack: ItemStack,
     player: Player,
-    hand: InteractionHand,
-  ): InteractionResultHolder<ItemStack> {
-    val heldItem: ItemStack = player.getItemInHand(hand)
+    petEntity: LivingEntity,
+    usedHand: InteractionHand,
+  ): InteractionResult {
+    val level = player.level()
 
     if (level.isClientSide()) {
       level.playLocalSound(player, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 1f, 1f)
-      Minecraft.getInstance().setScreen(PetTransceiverScreen())
+      Minecraft.getInstance().setScreen(PetTransceiverScreen(petEntity))
     }
 
-    return InteractionResultHolder.sidedSuccess(heldItem, level.isClientSide())
+    return InteractionResult.sidedSuccess(level.isClientSide())
   }
 }

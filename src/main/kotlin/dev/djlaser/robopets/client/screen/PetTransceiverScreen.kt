@@ -19,6 +19,23 @@ import org.joml.Vector3f
 class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title: Component) :
   AbstractContainerScreen<PetTransceiverMenu>(menu, playerInv, title) {
   companion object {
+    enum class Icon {
+      Health,
+      Armor
+    }
+
+    private fun GuiGraphics.drawIcon(x: Int, y: Int, icon: Icon) {
+      this.blit(
+        BASE_BG,
+        x,
+        y,
+        icon.ordinal * Layout.ICON_WIDTH,
+        Layout.ICON_V_OFFSET,
+        Layout.ICON_WIDTH,
+        Layout.ICON_HEIGHT
+      )
+    }
+
     val PET_NAME_LABEL: Component = Component.translatable("gui.robopets.pet_transceiver.pet_name")
 
     private val PET_TRANSLATION: Vector3f = Vector3f()
@@ -32,6 +49,7 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
     imageHeight = Layout.COMBINED_BG_HEIGHT
   }
 
+  private val petEntity get() = menu.petEntity
   private val petViewAngle = Quaternionf().rotationXYZ(0F, 0F, PI.toFloat())
   private lateinit var petName: EditBox
   private val player = playerInv.player
@@ -72,6 +90,7 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
   override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
     super.render(guiGraphics, mouseX, mouseY, partialTick)
     renderPetPanel(guiGraphics, partialTick)
+    renderPetStats(guiGraphics)
   }
 
   override fun renderBg(guiGraphics: GuiGraphics, partialTick: Float, mouseX: Int, mouseY: Int) {
@@ -112,7 +131,6 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
       Layout.PANEL_BG_HEIGHT,
     )
 
-    val petEntity = menu.petEntity
     val entityX = panelX + (Layout.PANEL_BG_WIDTH.toFloat() / 2)
     val entityY = (topPos + 90).toFloat()
     val targetRotation = -player.getViewYRot(partialTick) * PI.toFloat() / 180
@@ -131,5 +149,35 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
     )
 
     petEntity.customName = prevCustomName
+  }
+
+  private fun renderPetStats(guiGraphics: GuiGraphics) {
+
+    var left = leftPos + Layout.STATS_LEFT
+    val top = topPos + Layout.STATS_BOTTOM - font.lineHeight
+
+    guiGraphics.drawIcon(left, top, Icon.Health)
+    left += 2 + Layout.ICON_WIDTH
+
+    left = 4 + guiGraphics.drawString(
+      font,
+      "${petEntity.health.toInt()}/${petEntity.maxHealth.toInt()}",
+      left,
+      top + 1,
+      -1,
+      false
+    )
+
+    guiGraphics.drawIcon(left, top, Icon.Armor)
+    left += 2 + Layout.ICON_WIDTH
+
+    guiGraphics.drawString(
+      font,
+      "${petEntity.armorValue}",
+      left,
+      top + 1,
+      -1,
+      false
+    )
   }
 }

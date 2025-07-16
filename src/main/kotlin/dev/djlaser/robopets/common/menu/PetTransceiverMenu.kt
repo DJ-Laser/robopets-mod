@@ -33,6 +33,14 @@ object PetTransceiverLayout {
   val PLAYER_BG_X_OFFSET = (COMBINED_BG_WIDTH - PLAYER_BG_WIDTH) / 2
   const val PLAYER_BG_Y_OFFSET = BASE_BG_HEIGHT + BG_VERTICAL_GAP
   const val PANEL_BG_X_OFFSET = -1 * (PANEL_BG_WIDTH + BG_HORIZONTAL_GAP)
+
+  const val ICON_V_OFFSET = BASE_BG_HEIGHT + PANEL_BG_HEIGHT
+
+  const val ICON_WIDTH = 9
+  const val ICON_HEIGHT = 9
+
+  val STATS_LEFT = BASE_BG_X_OFFSET + 6
+  const val STATS_BOTTOM = BASE_BG_HEIGHT - 6
 }
 
 class PetTransceiverMenu(
@@ -94,13 +102,7 @@ class PetTransceiverMenu(
   }
 
   override fun quickMoveStack(player: Player, index: Int): ItemStack {
-    var resultItem = ItemStack.EMPTY
-    val slot = slots[index]
-    if (slot.hasItem()) {
-      resultItem = slot.item.copy()
-    }
-
-    return resultItem
+    return ItemStack.EMPTY
   }
 
   override fun stillValid(player: Player): Boolean {

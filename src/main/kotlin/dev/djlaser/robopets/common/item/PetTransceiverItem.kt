@@ -1,8 +1,8 @@
 package dev.djlaser.robopets.common.item
 
+import dev.djlaser.robopets.common.item.util.InteractLivingEntityFirst
 import dev.djlaser.robopets.common.menu.PetTransceiverMenu
 import net.minecraft.network.chat.Component
-import net.minecraft.stats.Stats
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.SimpleMenuProvider
@@ -12,9 +12,8 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.common.Tags
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
-class PetTransceiverItem(properties: Properties) : Item(properties) {
+class PetTransceiverItem(properties: Properties) : Item(properties), InteractLivingEntityFirst {
   private fun canInteractWith(player: Player, target: LivingEntity): Boolean {
     return when {
       target is Player
@@ -24,29 +23,6 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
         -> false
 
       else -> true
-    }
-  }
-
-  fun handleInteractEvent(event: PlayerInteractEvent.EntityInteractSpecific) {
-    val player = event.entity
-    val target = event.target
-    val hand = event.hand
-
-    if (target !is LivingEntity) {
-      return
-    }
-
-    val result = interactLivingEntity(event.itemStack, player, target, hand)
-
-    event.cancellationResult = result
-    event.isCanceled = result != InteractionResult.PASS
-
-    if (result.shouldSwing() && event.level.isClientSide) {
-      player.swing(hand)
-    }
-
-    if (result.indicateItemUse()) {
-      player.awardStat(Stats.ITEM_USED[this])
     }
   }
 

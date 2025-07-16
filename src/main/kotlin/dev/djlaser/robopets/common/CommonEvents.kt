@@ -1,6 +1,6 @@
 package dev.djlaser.robopets.common
 
-import dev.djlaser.robopets.common.item.PetTransceiverItem
+import dev.djlaser.robopets.common.item.util.InteractLivingEntityFirst
 import dev.djlaser.robopets.common.network.ServerBoundRenameEntityPayload
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -14,7 +14,7 @@ object CommonGameEvents {
   fun interactWithEntity(event: PlayerInteractEvent.EntityInteractSpecific) {
     val item = event.itemStack.item
 
-    if (item is PetTransceiverItem) {
+    if (item is InteractLivingEntityFirst) {
       item.handleInteractEvent(event)
     }
   }

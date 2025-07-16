@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "I": {
+      "item": "minecraft:copper_ingot"
+    },
+    "L": {
+      "item": "minecraft:clock"
+    },
+    "O": {
+      "item": "minecraft:observer"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    }
+  },
+  "pattern": [
+    "ODO",
+    "CLR",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "robopets:microchip"
+  }
+}

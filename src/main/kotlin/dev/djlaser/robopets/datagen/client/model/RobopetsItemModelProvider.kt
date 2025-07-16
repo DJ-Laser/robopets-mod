@@ -12,5 +12,6 @@ class RobopetsItemModelProvider(output: PackOutput, existingFileHelper: Existing
   override fun registerModels() {
     basicItem(RobopetsItems.PET_TRANSCEIVER.get())
     basicItem(RobopetsItems.MICROCHIP.get())
+    basicItem(RobopetsItems.HYPODERMIC_NEEDLE.get())
   }
 }

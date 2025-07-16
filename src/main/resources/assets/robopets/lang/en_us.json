@@ -3,6 +3,7 @@
   "block.robopets.genetic_replicator": "Genetic Replicator",
   "item.robopets.pet_transceiver": "Pet Transceiver",
   "item.robopets.microchip": "Microchip",
+  "item.robopets.hypodermic_needle": "Hypodermic Needle",
   "gui.robopets.pet_transceiver.title": "Pet Transceiver",
   "gui.robopets.pet_transceiver.pet_name": "Pet Name"
 }

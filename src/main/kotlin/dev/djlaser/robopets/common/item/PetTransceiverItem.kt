@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.SimpleMenuProvider
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.OwnableEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -14,9 +15,14 @@ import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
 class PetTransceiverItem(properties: Properties) : Item(properties) {
-  private fun canInteractWith(target: LivingEntity): Boolean {
+  private fun canInteractWith(player: Player, target: LivingEntity): Boolean {
     return when {
-      target is Player || !target.isAlive || target.type.`is`(Tags.EntityTypes.BOSSES) -> false
+      target is Player
+          || !target.isAlive
+          || target.type.`is`(Tags.EntityTypes.BOSSES)
+          || (target is OwnableEntity && target.owner != player)
+        -> false
+
       else -> true
     }
   }
@@ -56,7 +62,7 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
       return InteractionResult.PASS
     }
 
-    if (!canInteractWith(target)) {
+    if (!canInteractWith(player, target)) {
       return InteractionResult.PASS
     }
 

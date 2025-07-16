@@ -10,9 +10,17 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
 class PetTransceiverItem(properties: Properties) : Item(properties) {
+  private fun canInteractWith(target: LivingEntity): Boolean {
+    return when {
+      target is Player || !target.isAlive || target.type.`is`(Tags.EntityTypes.BOSSES) -> false
+      else -> true
+    }
+  }
+
   fun handleInteractEvent(event: PlayerInteractEvent.EntityInteractSpecific) {
     val player = event.entity
     val target = event.target
@@ -39,7 +47,7 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
   override fun interactLivingEntity(
     stack: ItemStack,
     player: Player,
-    petEntity: LivingEntity,
+    target: LivingEntity,
     usedHand: InteractionHand,
   ): InteractionResult {
     val level = player.level()
@@ -48,13 +56,17 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
       return InteractionResult.PASS
     }
 
+    if (!canInteractWith(target)) {
+      return InteractionResult.PASS
+    }
+
     if (!level.isClientSide()) {
       player.openMenu(
         SimpleMenuProvider(
-          { containerId, playerInv, _ -> PetTransceiverMenu(containerId, playerInv, petEntity) },
+          { containerId, playerInv, _ -> PetTransceiverMenu(containerId, playerInv, target) },
           Component.translatable("gui.robopets.pet_transceiver.title"),
         ),
-        { buf -> buf.writeInt(petEntity.id) },
+        { buf -> buf.writeInt(target.id) },
       )
     }
 

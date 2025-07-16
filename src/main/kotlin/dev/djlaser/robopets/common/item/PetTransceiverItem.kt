@@ -66,8 +66,7 @@ class PetTransceiverItem(properties: Properties) : Item(properties) {
           { containerId, playerInv, _ -> PetTransceiverMenu(containerId, playerInv, target) },
           Component.translatable("gui.robopets.pet_transceiver.title"),
         ),
-        { buf -> buf.writeInt(target.id) },
-      )
+      ) { buf -> buf.writeInt(target.id) }
     }
 
     return InteractionResult.sidedSuccess(level.isClientSide())

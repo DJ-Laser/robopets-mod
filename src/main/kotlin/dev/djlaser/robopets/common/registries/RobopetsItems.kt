@@ -13,5 +13,6 @@ object RobopetsItems {
     ITEMS.registerItem("pet_transceiver", ::PetTransceiverItem, Item.Properties())
 
   val MICROCHIP: DeferredItem<Item> = ITEMS.registerSimpleItem("microchip", Item.Properties())
-  val HYPODERMIC_NEEDLE: DeferredItem<Item> = ITEMS.registerSimpleItem("hypodermic_needle", Item.Properties())
+  val HYPODERMIC_NEEDLE: DeferredItem<Item> =
+    ITEMS.registerSimpleItem("hypodermic_needle", Item.Properties())
 }

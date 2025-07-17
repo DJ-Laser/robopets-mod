@@ -7,22 +7,19 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.SimpleMenuProvider
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.OwnableEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.common.Tags
 
 class PetTransceiverItem(properties: Properties) : Item(properties), InteractLivingEntityFirst {
-  private fun canInteractWith(player: Player, target: LivingEntity): Boolean {
-    return when {
-      target is Player
-          || !target.isAlive
-          || target.type.`is`(Tags.EntityTypes.BOSSES)
-          || (target is OwnableEntity && target.owner != player)
-        -> false
+  companion object {
+    private fun canInteractWith(target: LivingEntity): Boolean {
+      return when {
+        target is Player || !target.isAlive || target.type.`is`(Tags.EntityTypes.BOSSES) -> false
 
-      else -> true
+        else -> true
+      }
     }
   }
 
@@ -38,7 +35,7 @@ class PetTransceiverItem(properties: Properties) : Item(properties), InteractLiv
       return InteractionResult.PASS
     }
 
-    if (!canInteractWith(player, target)) {
+    if (!canInteractWith(target)) {
       return InteractionResult.PASS
     }
 
@@ -47,8 +44,10 @@ class PetTransceiverItem(properties: Properties) : Item(properties), InteractLiv
         SimpleMenuProvider(
           { containerId, playerInv, _ -> PetTransceiverMenu(containerId, playerInv, target) },
           Component.translatable("gui.robopets.pet_transceiver.title"),
-        ),
-      ) { buf -> buf.writeInt(target.id) }
+        )
+      ) { buf ->
+        buf.writeInt(target.id)
+      }
     }
 
     return InteractionResult.sidedSuccess(level.isClientSide())

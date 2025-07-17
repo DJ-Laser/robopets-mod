@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.util.StringUtil
 import net.minecraft.world.Container
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.OwnableEntity
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -81,6 +82,15 @@ class PetTransceiverMenu(
     private const val HOTBAR_Y_OFFSET = INV_Y_OFFSET + 58
   }
 
+  val canEditPet: Boolean
+    get() {
+      if (petEntity is OwnableEntity) {
+        return petEntity.ownerUUID == null || petEntity.ownerUUID == playerInv.player.uuid
+      }
+
+      return true
+    }
+
   init {
     for (row in 0..2) {
       for (column in 0..8) {
@@ -116,6 +126,10 @@ class PetTransceiverMenu(
     get() = petEntity.customName
 
   fun renameEntity(newName: String): Boolean {
+    if (!canEditPet) {
+      return false
+    }
+
     val name: Component? =
       if (StringUtil.isBlank(newName)) null
       else {

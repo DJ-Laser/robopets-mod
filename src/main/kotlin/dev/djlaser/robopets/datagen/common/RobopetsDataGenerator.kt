@@ -41,9 +41,6 @@ object RobopetsDataGenerator {
       event.includeServer(),
       RobopetsBlockTagsProvider(packOutput, lookupProvider, existingFileHelper),
     )
-    generator.addProvider(
-      event.includeServer(),
-      RobopetsRecipeProvider(packOutput, lookupProvider),
-    )
+    generator.addProvider(event.includeServer(), RobopetsRecipeProvider(packOutput, lookupProvider))
   }
 }

@@ -1,6 +1,7 @@
 package dev.djlaser.robopets.datagen.common.recipe
 
 import dev.djlaser.robopets.common.registries.RobopetsItems
+import java.util.concurrent.CompletableFuture
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.RecipeCategory
@@ -9,10 +10,11 @@ import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.Tags
-import java.util.concurrent.CompletableFuture
 
-class RobopetsRecipeProvider(output: PackOutput, lookupProvider: CompletableFuture<HolderLookup.Provider>) :
-  RecipeProvider(output, lookupProvider) {
+class RobopetsRecipeProvider(
+  output: PackOutput,
+  lookupProvider: CompletableFuture<HolderLookup.Provider>,
+) : RecipeProvider(output, lookupProvider) {
   override fun buildRecipes(output: RecipeOutput) {
     ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RobopetsItems.PET_TRANSCEIVER)
       .pattern("  L")

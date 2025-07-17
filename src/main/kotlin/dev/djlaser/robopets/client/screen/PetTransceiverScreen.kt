@@ -11,6 +11,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.OwnableEntity
 import net.minecraft.world.entity.player.Inventory
 import net.neoforged.neoforge.network.PacketDistributor
 import org.joml.Quaternionf
@@ -21,7 +22,7 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
   companion object {
     enum class Icon {
       Health,
-      Armor
+      Armor,
     }
 
     private fun GuiGraphics.drawIcon(x: Int, y: Int, icon: Icon) {
@@ -32,7 +33,7 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
         icon.ordinal * Layout.ICON_WIDTH,
         Layout.ICON_V_OFFSET,
         Layout.ICON_WIDTH,
-        Layout.ICON_HEIGHT
+        Layout.ICON_HEIGHT,
       )
     }
 
@@ -49,7 +50,12 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
     imageHeight = Layout.COMBINED_BG_HEIGHT
   }
 
-  private val petEntity get() = menu.petEntity
+  private val canEditPet
+    get() = menu.canEditPet
+
+  private val petEntity
+    get() = menu.petEntity
+
   private val petViewAngle = Quaternionf().rotationXYZ(0F, 0F, PI.toFloat())
   private lateinit var petName: EditBox
   private val player = playerInv.player
@@ -64,6 +70,7 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
     petName.setMaxLength(PetTransceiverMenu.NAME_MAX_LEN)
     petName.setResponder(this::onNameChanged)
     petName.value = menu.entityCustomName?.string ?: ""
+    petName.setEditable(canEditPet)
     petName.setHint(menu.entityName)
 
     this.addRenderableWidget(petName)
@@ -152,32 +159,41 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
   }
 
   private fun renderPetStats(guiGraphics: GuiGraphics) {
-
     var left = leftPos + Layout.STATS_LEFT
     val top = topPos + Layout.STATS_BOTTOM - font.lineHeight
 
     guiGraphics.drawIcon(left, top, Icon.Health)
     left += 2 + Layout.ICON_WIDTH
 
-    left = 4 + guiGraphics.drawString(
-      font,
-      "${petEntity.health.toInt()}/${petEntity.maxHealth.toInt()}",
-      left,
-      top + 1,
-      -1,
-      false
-    )
+    left =
+      4 +
+          guiGraphics.drawString(
+            font,
+            "${petEntity.health.toInt()}/${petEntity.maxHealth.toInt()}",
+            left,
+            top + 1,
+            -1,
+            false,
+          )
 
     guiGraphics.drawIcon(left, top, Icon.Armor)
     left += 2 + Layout.ICON_WIDTH
 
-    guiGraphics.drawString(
-      font,
-      "${petEntity.armorValue}",
-      left,
-      top + 1,
-      -1,
-      false
-    )
+    left = 4 + guiGraphics.drawString(font, "${petEntity.armorValue}", left, top + 1, -1, false)
+
+    when (val petEntity = petEntity) {
+      is OwnableEntity -> {
+        if (!canEditPet) {
+          guiGraphics.drawString(
+            font,
+            "Owner: ${petEntity.owner?.name}",
+            left,
+            top + 1,
+            -1,
+            false
+          )
+        }
+      }
+    }
   }
 }

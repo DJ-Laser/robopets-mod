@@ -167,14 +167,14 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
 
     left =
       4 +
-          guiGraphics.drawString(
-            font,
-            "${petEntity.health.toInt()}/${petEntity.maxHealth.toInt()}",
-            left,
-            top + 1,
-            -1,
-            false,
-          )
+        guiGraphics.drawString(
+          font,
+          "${petEntity.health.toInt()}/${petEntity.maxHealth.toInt()}",
+          left,
+          top + 1,
+          -1,
+          false,
+        )
 
     guiGraphics.drawIcon(left, top, Icon.Armor)
     left += 2 + Layout.ICON_WIDTH
@@ -184,14 +184,7 @@ class PetTransceiverScreen(menu: PetTransceiverMenu, playerInv: Inventory, title
     when (val petEntity = petEntity) {
       is OwnableEntity -> {
         if (!canEditPet) {
-          guiGraphics.drawString(
-            font,
-            "Owner: ${petEntity.owner?.name}",
-            left,
-            top + 1,
-            -1,
-            false
-          )
+          guiGraphics.drawString(font, "Owner: ${petEntity.owner?.name}", left, top + 1, -1, false)
         }
       }
     }

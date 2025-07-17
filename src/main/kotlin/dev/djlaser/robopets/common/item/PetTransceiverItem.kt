@@ -1,6 +1,7 @@
 package dev.djlaser.robopets.common.item
 
 import dev.djlaser.robopets.common.item.util.InteractLivingEntityFirst
+import dev.djlaser.robopets.common.item.util.canMicrochipEntity
 import dev.djlaser.robopets.common.menu.PetTransceiverMenu
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -10,19 +11,8 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.neoforged.neoforge.common.Tags
 
 class PetTransceiverItem(properties: Properties) : Item(properties), InteractLivingEntityFirst {
-  companion object {
-    private fun canInteractWith(target: LivingEntity): Boolean {
-      return when {
-        target is Player || !target.isAlive || target.type.`is`(Tags.EntityTypes.BOSSES) -> false
-
-        else -> true
-      }
-    }
-  }
-
   override fun interactLivingEntity(
     stack: ItemStack,
     player: Player,
@@ -31,12 +21,12 @@ class PetTransceiverItem(properties: Properties) : Item(properties), InteractLiv
   ): InteractionResult {
     val level = player.level()
 
-    if (player.isSecondaryUseActive || usedHand == InteractionHand.OFF_HAND) {
+    if (usedHand == InteractionHand.OFF_HAND) {
       return InteractionResult.PASS
     }
 
-    if (!canInteractWith(target)) {
-      return InteractionResult.PASS
+    if (!canMicrochipEntity(target)) {
+      return InteractionResult.FAIL
     }
 
     if (!level.isClientSide()) {

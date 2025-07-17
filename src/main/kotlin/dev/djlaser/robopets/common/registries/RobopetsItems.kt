@@ -1,6 +1,7 @@
 package dev.djlaser.robopets.common.registries
 
 import dev.djlaser.robopets.common.RobopetsMod
+import dev.djlaser.robopets.common.item.HypodermicNeedleItem
 import dev.djlaser.robopets.common.item.PetTransceiverItem
 import net.minecraft.world.item.Item
 import net.neoforged.neoforge.registries.DeferredItem
@@ -14,5 +15,5 @@ object RobopetsItems {
 
   val MICROCHIP: DeferredItem<Item> = ITEMS.registerSimpleItem("microchip", Item.Properties())
   val HYPODERMIC_NEEDLE: DeferredItem<Item> =
-    ITEMS.registerSimpleItem("hypodermic_needle", Item.Properties())
+    ITEMS.registerItem("hypodermic_needle", ::HypodermicNeedleItem, Item.Properties().stacksTo(1))
 }
